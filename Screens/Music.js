@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -11,7 +11,7 @@ import {
   FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {musicData} from '../assets/MusicData';
+import { musicData } from '../assets/MusicData';
 import Slider from '@react-native-community/slider';
 import TrackPlayer, {
   Capability,
@@ -19,7 +19,7 @@ import TrackPlayer, {
   useProgress,
 } from 'react-native-track-player';
 
-export default function Music({route}) {
+export default function Music({ route }) {
   const [playing, setPlaying] = useState(false);
 
   const navigation = useNavigation();
@@ -29,7 +29,7 @@ export default function Music({route}) {
 
   const progress = useProgress();
 
-  const {width} = Dimensions.get('screen');
+  const { width } = Dimensions.get('screen');
 
   const [currentsong, setCurrentsong] = useState(route.params.index);
 
@@ -80,15 +80,15 @@ export default function Music({route}) {
 
   const handleBack = () => {
     navigation.goBack();
-    route.params.onGoBack({play: playing});
+    route.params.onGoBack({ play: playing });
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
 
       <View
-        style={{flexDirection: 'row', marginLeft: 20, alignItems: 'center'}}>
+        style={{ flexDirection: 'row', marginLeft: 20, alignItems: 'center' }}>
         <TouchableOpacity onPress={handleBack}>
           <Icon name="chevron-back" color="white" size={25} />
         </TouchableOpacity>
@@ -105,7 +105,7 @@ export default function Music({route}) {
       </View>
 
       <View
-        style={{justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
+        style={{ justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
         <FlatList
           ref={slider}
           horizontal
@@ -121,7 +121,7 @@ export default function Music({route}) {
             TrackPlayer.skip(currentItem.id);
           }}
           keyExtractor={(item, index) => index}
-          renderItem={({item}) => {
+          renderItem={({ item }) => {
             return (
               <View>
                 <Image
@@ -167,13 +167,13 @@ export default function Music({route}) {
         />
       </View>
 
-      <View style={{alignItems: 'center'}}></View>
+      <View style={{ alignItems: 'center' }}></View>
 
-      <View style={{marginLeft: 40, marginRight: 40}}>
+      <View style={{ marginLeft: 40, marginRight: 40 }}>
         <Slider
           value={progress.position}
           minimumValue={0}
-          style={{height: 30}}
+          style={{ height: 30 }}
           maximumValue={progress.duration}
           thumbTintColor="green"
           minimumTrackTintColor="#FFFFFF"
@@ -182,15 +182,15 @@ export default function Music({route}) {
         />
       </View>
 
-      <View style={{flexDirection: 'row'}}>
-        <View style={{marginLeft: 45}}>
-          <Text style={{fontFamily: 'Oswald-Medium'}}>
+      <View style={{ flexDirection: 'row' }}>
+        <View style={{ marginLeft: 45 }}>
+          <Text style={{ fontFamily: 'Oswald-Medium' }}>
             {new Date(progress.position * 1000).toISOString().substring(14, 19)}
           </Text>
         </View>
 
-        <View style={{position: 'absolute', right: 45}}>
-          <Text style={{fontFamily: 'Oswald-Medium'}}>
+        <View style={{ position: 'absolute', right: 45 }}>
+          <Text style={{ fontFamily: 'Oswald-Medium' }}>
             {new Date(progress.duration * 1000).toISOString().substring(14, 19)}
           </Text>
         </View>
